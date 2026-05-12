@@ -17,6 +17,18 @@
 
     <label for="base">Base Color</label>
     <input id="base" type="color" name="base" value="cyan">
+
+    <label for="rotationX">Rotation X:</label>
+    <input id="rotationX" type="range" name="rotationX" min="0" max="360" value="0" data-sizing="deg">
+
+    <label for="rotationY">Rotation Y:</label>
+    <input id="rotationY" type="range" name="rotationY" min="0" max="360" value="0" data-sizing="deg">
+
+    <label for="rotationZ">Rotation Z:</label>
+    <input id="rotationZ" type="range" name="rotationZ" min="0" max="360" value="0" data-sizing="deg">
+
+    <label for="scale">Scale:</label>
+    <input id="scale" type="range" name="scale" step = "0.001" min="0" max="1" value="0.5">
   </div>
 
   <img src="https://img.pikbest.com/wp/202405/color-scheme-vibrant-3d-geometric-background-featuring-a-diversity-of-random-cubes-and-cool-blue_9844783.jpg!w700wp">
@@ -27,12 +39,17 @@
       --spacing: 10px;
       --base: cyan;
       --blur: 5px;
+      --rotationX: 0deg;
+      --rotationY: 0deg;
+      --rotationZ: 0deg;
+      --scale: 1;
     }
     
     img{
       padding: var(--spacing);
       background-color: var(--base);
       filter: blur(var(--blur));
+      transform: perspective(700px) scale(var(--scale)) rotateX(var(--rotationX)) rotateY(var(--rotationY)) rotateZ(var(--rotationZ));
     }
     
     .hl{
