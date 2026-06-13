@@ -123,10 +123,36 @@
   </div>
 
   <script>
-    const panels = document.querySelectorAll('.panel');
-  
+    const panels = Array.from(document.querySelectorAll('.panel'));
+    
+    //make sure nothing is transitioning when trying to toggle open, or else we can bug the flex box
+    panels.forEach(panel => {
+      panel.addEventListener("transitionstart", () => {
+        panel.isTransitioning = true;
+      });
+
+      panel.addEventListener("transitionend", () => {
+        panel.isTransitioning = false;
+      });
+    });
+
     function toggleOpen()
     {
+      const hasValue = panels.some(panel => panel.isTransitioning);
+      if (hasValue) return; // same thing
+      
+      //close everything that is opening when we open something else, so no two things are open at the same time
+      panels.forEach(panel => 
+      {
+        if(panel.classList.contains('open'))
+        {
+          if(panel !== this)
+          {
+            panel.classList.remove('open');
+          }
+        } 
+      });
+      
       this.classList.toggle('open');
     }
   
@@ -137,7 +163,7 @@
         this.classList.toggle('open-active');
       }
     }
-  
+
     panels.forEach(panel => panel.addEventListener('click', toggleOpen));
     panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
   </script>
