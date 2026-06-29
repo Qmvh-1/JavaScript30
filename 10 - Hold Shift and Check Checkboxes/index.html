@@ -106,10 +106,6 @@
     let inBetween = false;
     if (e.shiftKey) 
     {
-      if (!lastChecked.checked)
-      {
-        lastChecked.checked = true;
-      }
       checkboxes.forEach(checkbox => 
       {
         if (checkbox === this || checkbox === lastChecked) 
@@ -119,7 +115,10 @@
 
         if (inBetween) 
         {
-          checkbox.checked = !checkbox.checked;
+          if ((!lastChecked.checked || checkbox !== lastChecked) && (this.checked || checkbox !== this))
+          {
+            checkbox.checked = !checkbox.checked;
+          }
         }
       });
     }
